@@ -1,8 +1,10 @@
 import React from 'react'
 import {Editor } from '@tinymce/tinymce-react';
 import {Controller } from 'react-hook-form';
+import configVariables from '../configVariables/configVariables';
 
-
+// we can also use React.forwardref to take the reference of this RTE in parent components
+// control argument will pass the control to that component which is calling this child component  
 export default function RTE({name, control, label, defaultValue =""}) {
   return (
     <div className='w-full'> 
@@ -13,6 +15,7 @@ export default function RTE({name, control, label, defaultValue =""}) {
     control={control}
     render={({field: {onChange}}) => (
         <Editor
+        apiKey={configVariables.tinyMceApiKey}
         initialValue={defaultValue}
         init={{
             initialValue: defaultValue,

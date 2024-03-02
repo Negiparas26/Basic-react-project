@@ -1,12 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit';
-import authSlice from './authSlice';
-
+import { configureStore } from "@reduxjs/toolkit";
+import { authSliceReducer } from "../features/slice";
+// for keeping the check of if user is authetic or not
 const store = configureStore({
     reducer: {
-        auth : authSlice,
-        //TODO: add more slices here for posts
+        auth: authSliceReducer
+        //,post: postSlice // need to add another slice, 
+        // so that we don't need to do repetative requests to the web Server 
     }
-});
-
+})
 
 export default store;

@@ -1,10 +1,11 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE, Select } from "..";
-import appwriteService from "../../appwrite/config";
+import { Button, Input, RTE, Select } from "../ComponentIndex";
+import appwriteService from "../../appwriteService/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// will be used for both post updation and creation
 export default function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
@@ -34,7 +35,8 @@ export default function PostForm({ post }) {
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
             }
-        } else {
+        } 
+        else {
             const file = await appwriteService.uploadFile(data.image[0]);
 
             if (file) {
@@ -43,7 +45,7 @@ export default function PostForm({ post }) {
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
 
                 if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`);
+                    navigate(`/post/${dbPost.slug}`);//dbPost.$id
                 }
             }
         }

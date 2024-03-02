@@ -1,14 +1,19 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import { login as authLogin } from '../store/authSlice'
-import {Button, Input, Logo} from "./index"
+import { login as authLogin } from '../features/slice'
+import {Button, Input, Logo} from './ComponentIndex'
 import {useDispatch} from "react-redux"
-import authService from "../appwrite/auth"
+import authService from "../appwriteService/auth"
 import {useForm} from "react-hook-form"
 
 function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    // register: This is a function that you can use to register form inputs. 
+    //It tells the form how to associate the input with the form state. 
+    // handleSubmit: This is a function that you can use as an event handler for the form's onSubmit event. 
+    //It is typically called when the form is submitted and is used to handle the form submission logic.
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState("")
 
@@ -53,7 +58,7 @@ function Login() {
                 label="Email: "
                 placeholder="Enter your email"
                 type="email"
-                {...register("email", {
+                {...register("email", { // every time we use register we need to spread it else all the values will be overwrited
                     required: true,
                     validate: {
                         matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
@@ -80,4 +85,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Login;

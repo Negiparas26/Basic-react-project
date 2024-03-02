@@ -1,7 +1,7 @@
-import React from 'react'
-import appwriteService from "../appwrite/config"
+import appwriteService from "../appwriteService/config"
 import {Link} from 'react-router-dom'
 
+//id is return as $id as of appwrite syntax
 function PostCard({$id, title, featuredImage}) {
     
   return (
@@ -9,7 +9,7 @@ function PostCard({$id, title, featuredImage}) {
         <div className='w-full bg-gray-100 rounded-xl p-4'>
             <div className='w-full justify-center mb-4'>
                 <img src={appwriteService.getFilePreview(featuredImage)} alt={title}
-                className='rounded-xl' />
+                className='rounded-xl w-15 h-12' />
 
             </div>
             <h2

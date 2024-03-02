@@ -1,5 +1,7 @@
 import React, {useId} from 'react'
 
+// forwardRef function is used to forward the reference from parent to child, 
+// so that parent component can use the methods inside the child components
 const Input = React.forwardRef( function Input({
     label,
     type = "text",
@@ -26,4 +28,4 @@ const Input = React.forwardRef( function Input({
     )
 })
 
-export default Input
+export default Input;

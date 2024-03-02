@@ -1,7 +1,5 @@
-import React from "react";
-
 export default function Button({
-    children,
+    children, // text inside button
     type = "button",
     bgColor = "bg-blue-600",
     textColor = "text-white",

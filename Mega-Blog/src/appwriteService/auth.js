@@ -1,17 +1,15 @@
-import conf from '../conf/conf.js';
-import { Client, Account, ID } from "appwrite";
-
+import configVariables from "../configVariables/configVariables";
+import {Client, Account, ID} from 'appwrite';
 
 export class AuthService {
     client = new Client();
-    account;
 
-    constructor() {
+    constructor(){
         this.client
-            .setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteProjectId);
-        this.account = new Account(this.client);
-            
+        .setEndpoint(configVariables.appWriteUrl) // Your API Endpoint or URL
+        .setProject(configVariables.appWriteProjectId);  // Your project ID 
+        
+        this.account = new Account(this.client)
     }
 
     async createAccount({email, password, name}){
@@ -29,7 +27,6 @@ export class AuthService {
             throw error;
         }
     }
-
     async login({email, password}){
         try{
             return await this.account.createEmailSession(email, password);
@@ -40,15 +37,6 @@ export class AuthService {
             throw error;
         }
     }
-    async getCurrentUser() {
-        try {
-            return await this.account.get();
-        } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error);
-        }
-
-        return null;
-    }
 
     async logout(){
         try{
@@ -58,9 +46,19 @@ export class AuthService {
             console.log('Error Occurred during logout :', error)
         }
     }
+
+    async getCurrentUser(){
+        try{
+            return this.account.get()
+        }
+        catch(error){
+            console.log('Current User not found :', error)
+        }
+
+        return null;
+    }
 }
 
 const authService = new AuthService();
 
-export default authService
-
+export default authService;

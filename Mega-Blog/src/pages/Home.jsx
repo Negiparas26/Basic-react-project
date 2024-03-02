@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from 'react'
-import appwriteService from "../appwrite/config";
-import {Container, PostCard} from '../components'
+import appwriteService from "../appwriteService/config";
+import {Container, PostCard} from '../components/ComponentIndex'
+import { useSelector } from 'react-redux';
 
 function Home() {
     const [posts, setPosts] = useState([])
 
-    useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents)
-            }
-        })
-    }, [])
+    const auth = useSelector((state)=>(state.status))
+    // TODO: data should be fetched based on user is logged in or not
+    //if(auth){
+        useEffect(() => {
+            appwriteService.getPosts(null).then((posts) => {
+                if (posts) {
+                    setPosts(posts.documents)
+                }
+            })
+        }, [])
+    //}
+    
   
     if (posts.length === 0) {
         return (
